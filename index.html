@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silent Pulse Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="player-wrapper">
+        <div class="header">
+            <span class="pulse-icon"></span>
+            <p>SILENT MODE ACTIVE</p>
+        </div>
+
+        <div class="visualizer-box">
+            <div class="glow-ring"></div>
+            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=400" alt="Abstract Art">
+        </div>
+
+        <div class="meta">
+            <h1>Emerald Glitch</h1>
+            <p>Techno Nature</p>
+        </div>
+
+        <div class="timeline">
+            <div class="bar">
+                <div class="fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="side-btn">shuffle</button>
+            <button class="play-btn" id="playBtn">PLAY</button>
+            <button class="side-btn">repeat</button>
+        </div>
+    </div>
+
+    <audio id="myAudio" muted>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const audio = document.getElementById('myAudio');
+        const playBtn = document.getElementById('playBtn');
+        const progressFill = document.getElementById('progressFill');
+        const wrapper = document.querySelector('.player-wrapper');
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.textContent = 'PAUSE';
+                wrapper.classList.add('is-playing');
+            } else {
+                audio.pause();
+                playBtn.textContent = 'PLAY';
+                wrapper.classList.remove('is-playing');
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = percent + '%';
+        });
+    </script>
+</body>
+</html>
